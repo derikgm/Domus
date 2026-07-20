@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './components/header.component';
 import { FooterComponent } from './components/footer.component';
+import { HeaderComponent } from './components/header.component';
+import { HomePageComponent } from './components/pages/home-page.component';
 import { WhatsAppButtonComponent } from './components/whatsapp-button.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, WhatsAppButtonComponent],
+  imports: [HeaderComponent, FooterComponent, WhatsAppButtonComponent, HomePageComponent],
   template: `
     <app-header />
     <main class="pt-16">
-      <router-outlet />
+      <app-home-page />
     </main>
     <app-footer />
     <app-whatsapp-button />

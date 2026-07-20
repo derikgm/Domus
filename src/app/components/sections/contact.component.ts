@@ -1,8 +1,20 @@
 import { Component, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { matWhatsappOutline, matMailOutline, matMapOutline, matPhoneOutline} from "@ng-icons/material-icons/outline"
 
 @Component({
   selector: 'app-contact',
   standalone: true,
+  imports:[NgIcon],
+  providers:[
+    provideIcons({
+      whatsap: matWhatsappOutline,
+      mail: matMailOutline,
+      map: matMapOutline,
+      phone: matPhoneOutline,
+    })
+  ],
+
   template: `
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 max-w-6xl">
@@ -14,8 +26,8 @@ import { Component, signal } from '@angular/core';
             @for (contact of contactInfo(); track contact.label) {
               <div class="flex items-center gap-4 group">
                 <div [class]="contact.bgColor + ' p-3 rounded-full text-white text-xl w-14 h-14 flex items-center justify-center group-hover:scale-110 transition-transform'">
-                  <i [class]="contact.icon"></i>
-                </div>
+                <ng-icon [name]="contact.icon" class="text-3xl"/>
+              </div>
                 <div>
                   <p class="font-semibold text-domus-primary">{{ contact.label }}</p>
                   <a [href]="contact.href" 
@@ -73,14 +85,14 @@ import { Component, signal } from '@angular/core';
 export class ContactComponent {
   contactInfo = signal([
     {
-      icon: 'fas fa-phone',
+      icon: 'phone',
       label: 'Teléfono',
       value: '+52 123 456 7890',
       href: 'tel:+521234567890',
-      bgColor: 'bg-domus-accent'
+      bgColor: 'bg-black'
     },
     {
-      icon: 'fab fa-whatsapp',
+      icon: 'whatsap',
       label: 'WhatsApp',
       value: '+52 123 456 7890',
       href: 'https://wa.me/5211234567890',
@@ -88,16 +100,16 @@ export class ContactComponent {
       bgColor: 'bg-green-500'
     },
     {
-      icon: 'fas fa-envelope',
+      icon: 'mail',
       label: 'Correo',
       value: 'info@domus.mx',
       href: 'mailto:info@domus.mx',
       bgColor: 'bg-blue-500'
     },
     {
-      icon: 'fas fa-map-marker-alt',
+      icon: 'map',
       label: 'Dirección',
-      value: 'Av. Principal #123, Colonia Centro',
+      value: 'SS, Av. 26 de julio, 568-C',
       href: '#',
       bgColor: 'bg-red-500'
     }

@@ -1,26 +1,24 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
   template: `
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
         <!-- Logo -->
-        <a routerLink="/" class="flex items-center gap-2 text-2xl font-bold text-domus-primary">
+        <a href="#inicio" class="flex items-center gap-2 text-2xl font-bold text-domus-primary">
           <i class="fas fa-home"></i>
           <span>DOMUS</span>
         </a>
 
         <!-- Menú Desktop -->
         <ul class="hidden md:flex gap-8 text-domus-primary font-medium">
-          @for (item of menuItems; track item.path) {
+          @for (item of menuItems; track item.id) {
             <li>
-              <a [routerLink]="item.path" 
-                 routerLinkActive="text-domus-accent" 
-                 [routerLinkActiveOptions]="{exact: item.exact}">
+              <a [href]="'#' + item.id" 
+                 (click)="scrollTo(item.id)"
+                 class="hover:text-domus-accent transition-colors">
                 {{ item.label }}
               </a>
             </li>
@@ -37,12 +35,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       @if (menuOpen()) {
         <div class="md:hidden bg-white border-t border-gray-100 shadow-lg">
           <ul class="flex flex-col p-4 gap-3 text-domus-primary font-medium">
-            @for (item of menuItems; track item.path) {
+            @for (item of menuItems; track item.id) {
               <li>
-                <a [routerLink]="item.path" 
-                   (click)="closeMenu()" 
-                   routerLinkActive="text-domus-accent" 
-                   [routerLinkActiveOptions]="{exact: item.exact}">
+                <a [href]="'#' + item.id" 
+                   (click)="scrollTo(item.id); closeMenu()"
+                   class="block hover:text-domus-accent transition-colors">
                   {{ item.label }}
                 </a>
               </li>
@@ -57,12 +54,12 @@ export class HeaderComponent {
   menuOpen = signal(false);
   
   menuItems = [
-    { path: '/', label: 'Inicio', exact: true },
-    { path: '/nosotros', label: 'Nosotros', exact: false },
-    { path: '/servicios', label: 'Servicios', exact: false },
-    { path: '/tienda', label: 'Tienda', exact: false },
-    { path: '/galeria', label: 'Galería', exact: false },
-    { path: '/contacto', label: 'Contacto', exact: false }
+    { id: 'inicio', label: 'Inicio' },
+    { id: 'nosotros', label: 'Nosotros' },
+    { id: 'servicios', label: 'Servicios' },
+    { id: 'tienda', label: 'Tienda' },
+    { id: 'galeria', label: 'Galería' },
+    { id: 'contacto', label: 'Contacto' }
   ];
 
   toggleMenu() {
@@ -71,5 +68,12 @@ export class HeaderComponent {
 
   closeMenu() {
     this.menuOpen.set(false);
+  }
+
+  scrollTo(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
