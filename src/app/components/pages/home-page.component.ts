@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { HomeComponent } from '../sections/home.component';
 import { AboutComponent } from '../sections/about.component';
 import { ContactComponent } from '../sections/contact.component';
-import { GalleryComponent } from '../sections/gallery.component';
+// import { GalleryComponent } from '../sections/gallery.component';
 import { ServicesComponent } from '../sections/services.component';
-import { StoreComponent } from '../sections/store.component';
+// import { StoreComponent } from '../sections/store.component';
 
 @Component({
   selector: 'app-home-page',
@@ -13,8 +13,8 @@ import { StoreComponent } from '../sections/store.component';
     HomeComponent,
     AboutComponent,
     ServicesComponent,
-    StoreComponent,
-    GalleryComponent,
+    // StoreComponent,
+    // GalleryComponent,
     ContactComponent
   ],
   template: `
